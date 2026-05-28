@@ -1,4 +1,5 @@
 from services.autenticacio import iniciar_sessio
+from services.joc import jugar_questionari_individual, jugar_questionari_1vs1
 from services.registre import registrar_usuari
 
 def mostrar_menu():
@@ -30,10 +31,10 @@ def mostrar_menu():
                 print(" Importa un questionari  ")
 
             case "4":
-                print(" Juga al questionari en solitari ")
+                jugar_questionari_individual(usuari_actiu)
 
             case "5":
-                print(" Juga mode 1 vs 1    ")
+                jugar_questionari_1vs1(usuari_actiu)
 
             case "6":
                 print(" Estadístiques personals ")
