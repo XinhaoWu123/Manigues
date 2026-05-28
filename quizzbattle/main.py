@@ -1,4 +1,7 @@
+from services.autenticacio import iniciar_sessio
+from services.registre import registrar_usuari
 def mostrar_menu():
+    usuari_actiu = None
     while True:
         print()
         print("        MENÚ PRINCIPAL       ")
@@ -17,10 +20,10 @@ def mostrar_menu():
 
         match opcio:
             case "1":
-                print(" Registre d'usuari ")
+                registrar_usuari()
 
             case "2":
-                print(" Inici de sessió ")
+                usuari_actiu = iniciar_sessio()
 
             case "3":
                 print(" Importa un questionari  ")

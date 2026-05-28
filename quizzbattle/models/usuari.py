@@ -1,16 +1,10 @@
-from abc import ABC, abstractmethod
 class Usuari:
-    noms_existents = []
 
-    def __init__(self, nom, edat, correu):
+    def __init__(self, nom, nom_usuari, contrassenya, email):
         self._nom = nom
-        self._edat = edat
-        self._correu = correu
-        if nom not in Usuari.noms_existents:
-            self._nom = nom
-            Usuari.noms_existents.append(nom)
-        else:
-            print("Aquest nom d'usuari ja existeix")
+        self._nom_usuari = nom_usuari
+        self._contrassenya = contrassenya
+        self._email = email
 
     def get_nom(self):
         return self._nom
@@ -18,18 +12,25 @@ class Usuari:
     def set_nom(self, nou_nom):
         self._nom = nou_nom
 
-    def get_edat(self):
-        return self._edat
-    def set_edat(self, nova_edat):
-            self._edat = nova_edat
-            
-    def get_correu(self):
-        return self._correu
+    def get_nom_usuari(self):
+        return self._nom_usuari
 
-    def set_correu(self, nou_correu):
-        self._correu = nou_correu
+    def set_nom_usuari(self, nou_nom_usuari):
+        self._nom_usuari = nou_nom_usuari
 
-    def __str__(self): return (f"Nom: {self._nom}\n" 
-                                f"Edat: {self._edat}\n" 
-                                f"Correu: {self._correu}")
-        
+    def get_contrassenya(self):
+        return self._contrassenya
+
+    def set_contrassenya(self, nova_contrassenya):
+        self._contrassenya = nova_contrassenya
+
+    def get_email(self):
+        return self._email
+
+    def set_email(self, nou_email):
+        self._email = nou_email
+
+    def __str__(self):
+        return (f"Nom: {self._nom}\n"
+                f"Nom d'usuari: {self._nom_usuari}\n"
+                f"Email: {self._email}")
