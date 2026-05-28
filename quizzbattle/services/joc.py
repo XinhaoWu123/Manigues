@@ -77,7 +77,7 @@ def jugar_questionari_individual(usuari_actiu):
                 print(f"Respuesta incorrecta. La respuesta correcta era: {pregunta.get_resposta_correcta()}")
                 respostes_errades += 1
 
-        resultados = finalitzar_questionari(conn, seleccion, usuari_actiu.get_id_usuari(), respostes_correctes, respostes_errades, punts_obtinguts, punts_totals)
+        resultados = finalitzar_questionari(conn, seleccion, usuari_actiu['id_usuari'], respostes_correctes, respostes_errades, punts_obtinguts, punts_totals)
         print("\n--- Resumen del Juego ---")
         print(f"Encuestas correctas: {resultados['encerts']}")
         print(f"Encuestas incorrectas: {resultados['errades']}")
@@ -94,7 +94,7 @@ def jugar_questionari_1vs1(usuari_actiu):
         return
 
     print("\n--- Modo 1 vs 1 ---")
-    print("Jugador 1: ", usuari_actiu.get_nom_usuari())
+    print("Jugador 1: ", usuari_actiu['nom_usuari'])
 
     print("\nIntroduce los datos del Jugador 2:")
     usuari2 = iniciar_sessio()
@@ -102,7 +102,7 @@ def jugar_questionari_1vs1(usuari_actiu):
         print("No se pudo iniciar sesión para el Jugador 2. Cancelando partida.")
         return
     
-    if usuari_actiu.get_id_usuari() == usuari2.get_id_usuari():
+    if usuari_actiu['id_usuari'] == usuari2['id_usuari']:
         print("No puedes jugar contra ti mismo. Por favor, selecciona otro usuario para el Jugador 2.")
         return
 
@@ -164,7 +164,7 @@ def jugar_questionari_1vs1(usuari_actiu):
 
             while True:
                 try:
-                    respuesta_j1 = int(input(f"Jugador 1 ({usuari_actiu.get_nom_usuari()}), tu respuesta (número): "))
+                    respuesta_j1 = int(input(f"Jugador 1 ({usuari_actiu['nom_usuari']}), tu respuesta (número): "))
                     if 1 <= respuesta_j1 <= len(opciones):
                         break
                     else:
@@ -182,7 +182,7 @@ def jugar_questionari_1vs1(usuari_actiu):
 
             while True:
                 try:
-                    respuesta_j2 = int(input(f"Jugador 2 ({usuari2.get_nom_usuari()}), tu respuesta (número): "))
+                    respuesta_j2 = int(input(f"Jugador 2 ({usuari2['nom_usuari']}), tu respuesta (número): "))
                     if 1 <= respuesta_j2 <= len(opciones):
                         break
                     else:
@@ -198,12 +198,12 @@ def jugar_questionari_1vs1(usuari_actiu):
                 print(f"Jugador 2: Respuesta incorrecta. La respuesta correcta era: {pregunta.get_resposta_correcta()}")
                 respostes_errades_j2 += 1
 
-        resultados_vs = guardar_partida_vs(conn, seleccion, usuari_actiu.get_id_usuari(), usuari2.get_id_usuari(),
+        resultados_vs = guardar_partida_vs(conn, seleccion, usuari_actiu['id_usuari'], usuari2['id_usuari'],
                                            punts_obtinguts_j1, punts_totals_cuestionario,
                                            punts_obtinguts_j2, punts_totals_cuestionario)
 
         print("\n--- Resumen del Juego 1 vs 1 ---")
-        print(f"Jugador 1 ({usuari_actiu.get_nom_usuari()}): ")
+        print(f"Jugador 1 ({usuari_actiu['nom_usuari']}): ")
         print(f"  Encuestas correctas: {respostes_correctes_j1}")
         print(f"  Encuestas incorrectas: {respostes_errades_j1}")
         print(f"  Puntuación final: {resultados_vs['puntuacio1']}")
@@ -216,9 +216,9 @@ def jugar_questionari_1vs1(usuari_actiu):
         print(f"  Resultado: {resultados_vs['resultat2']}")
 
         if resultados_vs['resultat1'] == 'WIN':
-            print(f"\n¡El ganador es el Jugador 1 ({usuari_actiu.get_nom_usuari()})!")
+            print(f"¡El ganador es el Jugador 1 ({usuari_actiu['nom_usuari']})!")
         elif resultados_vs['resultat2'] == 'WIN':
-            print(f"\n¡El ganador es el Jugador 2 ({usuari2.get_nom_usuari()})!")
+            print(f"¡El ganador es el Jugador 2 ({usuari2["nom_usuari"]})!")
         else:
             print("\n¡Es un empate!")
 
