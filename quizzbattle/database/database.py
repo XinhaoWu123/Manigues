@@ -71,3 +71,36 @@ def get_connection():
     )
     
     return conn
+
+def insert_questionari_db(conn, questionari_obj, id_propietari):
+    cursor = conn.cursor()
+    sql = "INSERT INTO questionaris (id_propietari, titol, categoria, dificultat, descripcio) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(sql, (id_propietari, questionari_obj.get_titol(), questionari_obj.get_categoria(), questionari_obj.get_dificultat(), questionari_obj.get_descripcio()))
+    conn.commit()
+    return cursor.lastrowid
+
+def insert_pregunta_db(conn, pregunta_obj, id_questionari):
+    cursor = conn.cursor()
+    sql = "INSERT INTO preguntes (id_questionari, tipus, enunciat, resposta1, resposta2, resposta3, resposta4, resposta_correcta, punts) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor.execute(sql, (id_questionari, pregunta_obj.get_tipus(), pregunta_obj.get_enunciat(), pregunta_obj.get_resposta1(), pregunta_obj.get_resposta2(), pregunta_obj.get_resposta3(), pregunta_obj.get_resposta4(), pregunta_obj.get_resposta_correcta(), pregunta_obj.get_punts()))
+    conn.commit()
+
+def get_questionari_by_title_and_owner_db(conn, titol, id_propietari):
+    cursor = conn.cursor(dictionary=True)
+    sql = "SELECT id_questionari, titol, categoria, dificultat, descripcio FROM questionaris WHERE titol = %s AND id_propietari = %s"
+    cursor.execute(sql, (titol, id_propietari))
+    questionari_data = cursor.fetchone()
+    cursor.close()
+    return questionari_data
+
+def update_questionari_db(conn, questionari_obj, id_questionari):
+    cursor = conn.cursor()
+    sql = "UPDATE questionaris SET titol = %s, categoria = %s, dificultat = %s, descripcio = %s WHERE id_questionari = %s"
+    cursor.execute(sql, (questionari_obj.get_titol(), questionari_obj.get_categoria(), questionari_obj.get_dificultat(), questionari_obj.get_descripcio(), id_questionari))
+    conn.commit()
+
+def delete_preguntes_by_questionari_id(conn, id_questionari):
+    cursor = conn.cursor()
+    sql = "DELETE FROM preguntes WHERE id_questionari = %s"
+    cursor.execute(sql, (id_questionari,))
+    conn.commit()
