@@ -1,6 +1,7 @@
 from services.autenticacio import iniciar_sessio
 from services.joc import jugar_questionari_individual, jugar_questionari_1vs1
 from services.registre import registrar_usuari
+from services.importacio_json import JSONImporter
 
 def mostrar_menu():
     usuari_actiu = None
@@ -28,7 +29,13 @@ def mostrar_menu():
                 usuari_actiu = iniciar_sessio()
 
             case "3":
-                print(" Importa un questionari  ")
+                if usuari_actiu:
+                    importer = JSONImporter()
+                    file_path = input("Introduce la ruta del archivo JSON a importar: ")
+                    created, updated = importer.importar_questionaris(file_path, usuari_actiu)
+                    print(f"\nResumen de la importación: {created} cuestionarios creados, {updated} cuestionarios actualizados.")
+                else:
+                    print("Debes iniciar sesión para importar cuestionarios.")
 
             case "4":
                 jugar_questionari_individual(usuari_actiu)
