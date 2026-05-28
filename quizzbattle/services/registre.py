@@ -1,7 +1,6 @@
 import mysql.connector
-from database.database import get_connection
 from models.usuari import Usuari
-
+from database.database import get_connection
 
 def registrar_usuari():
     """
