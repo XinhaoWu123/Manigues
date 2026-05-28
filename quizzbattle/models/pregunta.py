@@ -68,7 +68,7 @@ class Pregunta(ABC):
         self.__punts = nous_punts
 
     @abstractmethod
-    def validar(self, resposta_usuari: int) -> bool:
+    def validar(self, resposta_usuari: int) :
         pass
 
     def mostrar_pregunta(self):
@@ -99,18 +99,44 @@ class PreguntaVF(Pregunta):
             punts
         )
 
-    def validar(self, resposta_usuari) -> bool:
+    def validar(self, resposta_usuari) :
         return resposta_usuari == self.get_resposta_correcta()
     
-    
+            
 class PreguntaMulti(Pregunta):
-    def __init__(self, id_pregunta, id_questionari,enunciat, resposta_correcta, punts):
+
+    def __init__(self, id_pregunta, id_questionari, enunciat, 
+                 resposta1, resposta2, resposta_correcta, punts, 
+                 resposta3=None, resposta4=None):
         super().__init__(
             id_pregunta,
             id_questionari,
             enunciat,
-            "Vertader",
-            "Fals",
+            resposta1,
+            resposta2,
             resposta_correcta,
-            punts
+            punts,
+            resposta3,
+            resposta4
         )
+
+    def validar(self, resposta_usuari) :
+        respostes_disponibles = [1, 2]
+        if self.get_resposta3() is not None:
+            respostes_disponibles.append(3)
+        if self.get_resposta4() is not None:
+            respostes_disponibles.append(4)
+
+        if resposta_usuari not in respostes_disponibles:
+            raise ValueError(f"Resposta invàlida. Tria entre: {respostes_disponibles}")
+        
+        return resposta_usuari == self.get_resposta_correcta()
+
+    def mostrar_pregunta(self):
+        print(f"\n{self.get_enunciat()}")
+        print(f"  1. {self.get_resposta1()}")
+        print(f"  2. {self.get_resposta2()}")
+        if self.get_resposta3() is not None:
+            print(f"  3. {self.get_resposta3()}")
+        if self.get_resposta4() is not None:
+            print(f"  4. {self.get_resposta4()}")
