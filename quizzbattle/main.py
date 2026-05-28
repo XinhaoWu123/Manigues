@@ -1,5 +1,6 @@
 from services.autenticacio import iniciar_sessio
 from services.registre import registrar_usuari
+
 def mostrar_menu():
     usuari_actiu = None
     while True:

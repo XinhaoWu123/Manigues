@@ -30,7 +30,7 @@ def iniciar_sessio():
         conn.close()
 
         if usuari:
-            print(f"\n✅ Benvingut/da, {usuari['nom']}!")
+            print(f"\nBenvingut/da, {usuari['nom']}!")
             return usuari
         else:
             print("Nom d'usuari o contrasenya incorrectes.")
